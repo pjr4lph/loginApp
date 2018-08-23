@@ -17,9 +17,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('../index.ejs', {
-    access: ''
-  });
+  res.render('../pages/index.ejs');
 });
 
 app.post('/submit', controller.auth);

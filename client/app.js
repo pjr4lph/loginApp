@@ -4,13 +4,9 @@ const controller = {};
 
 controller.auth = function(req, res) {
   if (req.body.username === DB.username && req.body.password === DB.password) {
-    res.render('../index.ejs', {
-      access: 'GRANTED'
-    });
+    res.render('../pages/accepted.ejs');
   } else {
-    res.render('../index.ejs', {
-      access: 'DENIED'
-    });
+    res.render('../pages/denied.ejs');
   }
 }
 
