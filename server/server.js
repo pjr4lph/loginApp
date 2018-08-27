@@ -26,12 +26,18 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+// app.use(express.static(path.join(__dirname, '../build')));
 
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
   res.render('../pages/index.ejs');
+  // res.sendFile(path.join(__dirname, '../build/index.html'));
 });
+
+// app.get('/webpack-bundle.js', (req, res) => {
+//   res.sendFile(path.join(__dirname , '../build/webpack-bundle.js'));
+// });
 
 app.post('/submit', controller.checkCache, controller.auth);
 
@@ -53,3 +59,5 @@ https.createServer(options, app).listen(PORT, () => {
 // you opened up a port from your local machine to the outside and have it running
 // behind a domain name which resolves to your machine, which is a highly unlikely scenario
 // basically - need an actual domain name to use cerbot/webroot to get free certifications
+
+// ngrok.io

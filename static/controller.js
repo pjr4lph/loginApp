@@ -24,7 +24,8 @@ controller.auth = function(req, res) {
     if (docs[0] === undefined) {
       res.render('../pages/denied.ejs');
     } else if (docs[0].password === req.body.password) {
-      client.set(req.body.username, req.body.password, redis.print);
+      // 1000 seconds ~ 17 minutes
+      client.setex(req.body.username, 1000, req.body.password, redis.print);
       res.render('../pages/accepted.ejs');
     }
   });
