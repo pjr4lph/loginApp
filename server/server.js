@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
   res.render('../pages/index.ejs');
 });
 
-app.post('/submit', controller.auth);
+app.post('/submit', controller.checkCache, controller.auth);
 
 const options = {
   key: fs.readFileSync(path.join(__dirname, 'server.key')),
