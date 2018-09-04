@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import React from 'react'; 
-import Component from 'react';
+import React, { Component } from 'react';
 
 class App extends Component {
   constructor(props) {
@@ -10,10 +9,15 @@ class App extends Component {
       password: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({username: event.target.username, password: event.target.password});
   }
 
   handleSubmit(event) {
-    this.setState({username: event.target.username, password: event.target.password});
+    fetch()
     event.preventDefault();
   }
 
@@ -22,7 +26,7 @@ class App extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           username:
-          <input type="text" value={this.state.username} />
+          <input type="text" value={this.state.username} onChange={this.handleChange}/>
         </label>
         <label>
           password:
@@ -33,3 +37,5 @@ class App extends Component {
     );
   }
 }
+
+export default App;

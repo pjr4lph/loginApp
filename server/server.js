@@ -31,13 +31,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('../pages/index.ejs');
-  // res.sendFile(path.join(__dirname, '../build/index.html'));
+  // res.render('../pages/index.ejs');
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
-// app.get('/webpack-bundle.js', (req, res) => {
-//   res.sendFile(path.join(__dirname , '../build/webpack-bundle.js'));
-// });
+app.get('/webpack-bundle.js', (req, res) => {
+  res.sendFile(path.join(__dirname , '../build/webpack-bundle.js'));
+});
 
 app.post('/submit', controller.checkCache, controller.auth);
 
