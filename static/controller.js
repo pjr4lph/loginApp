@@ -11,6 +11,8 @@ controller.checkCache = function(req, res, next) {
       throw err;
     } if (result === req.body.password) {
       console.log('in check cache');
+      // reaching in here but removed view engine so file not rendering or reaching
+      // next()
       res.render('../pages/accepted.ejs');
     } else {
       next();

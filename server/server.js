@@ -39,7 +39,10 @@ app.get('/webpack-bundle.js', (req, res) => {
   res.sendFile(path.join(__dirname , '../build/webpack-bundle.js'));
 });
 
-app.post('/submit', controller.checkCache, controller.auth);
+app.post('/submit', (req, res, next) => {
+  console.log('the body in request is: ', req.body);
+  next();
+}, controller.checkCache, controller.auth);
 
 const options = {
   key: fs.readFileSync(path.join(__dirname, 'server.key')),
