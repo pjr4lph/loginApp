@@ -1,12 +1,16 @@
 import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
+import Accepted from './accepted.js';
+import Denied from './denied.js';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      loggedIn: false
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -42,24 +46,42 @@ class App extends Component {
       },
       body: data
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log('in then ', response.status);
+      if (response.status === 200) {
+        console.log('in side if statement');
+        this.setState({loggedIn: true});
+      }
+    })
     .catch(err => console.log(err));
 
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          username:
-          <input type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
-        </label>
-        <label>
-          password:
-          <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            username:
+            <input type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
+          </label>
+          <label>
+            password:
+            <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+
+        <Route exact path="*" render={() => (
+          this.state.loggedIn ? (
+            <Redirect to="/accepted"/>
+          ) : (
+            <Redirect to="/denied"/>
+          )
+        )}/>
+        <Route path="/accepted" component={Accepted}/>
+        <Route path="/denied" component={Denied}/>
+      </div>
     );
   }
 }
