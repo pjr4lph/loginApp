@@ -26,12 +26,10 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-// app.use(express.static(path.join(__dirname, '../build')));
 
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  // res.render('../pages/index.ejs');
   res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 

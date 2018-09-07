@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       username: '',
       password: '',
-      loggedIn: false
+      loggedIn: false,
+      redirectPath: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -29,8 +30,6 @@ class App extends Component {
 
   handleSubmit(event) {
     //here need to use isomorphic fetch to make a call to the server to the submit path
-    console.log(this.state);
-
     event.preventDefault();
 
     const data = JSON.stringify({
@@ -49,12 +48,18 @@ class App extends Component {
     .then(response => {
       console.log('in then ', response.status);
       if (response.status === 200) {
-        console.log('in side if statement');
         this.setState({loggedIn: true});
+      } else {
+        this.setState({loggedIn: false});
       }
+        this.setState({redirectPath : [
+          <Route exact path="*" render={() => (this.state.loggedIn ? (<Redirect to="/accepted"/>) : (<Redirect to="/denied"/>))}/>,
+          <Route path="/accepted" component={Accepted}/>,
+          <Route path="/denied" component={Denied}/>
+        ]});
+
     })
     .catch(err => console.log(err));
-
   }
 
   render() {
@@ -71,16 +76,7 @@ class App extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-
-        <Route exact path="*" render={() => (
-          this.state.loggedIn ? (
-            <Redirect to="/accepted"/>
-          ) : (
-            <Redirect to="/denied"/>
-          )
-        )}/>
-        <Route path="/accepted" component={Accepted}/>
-        <Route path="/denied" component={Denied}/>
+        {this.state.redirectPath}
       </div>
     );
   }
