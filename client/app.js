@@ -29,7 +29,11 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    //here need to use isomorphic fetch to make a call to the server to the submit path
+// handlesubmit handles alot (maybe too much), it makes a fetch request to backend to
+// seek authorization (that login credentials are correct) and either receives a status code
+// of 200(OK) or 404(not found), and on either case it either sets the loggedIn val as true or false
+// regardless of t/f this.redirectPath gets assigned ternary statement of a react router
+// which in restrospect is superfluous because a whole component doesnt really need to directed to but whatever....
     event.preventDefault();
 
     const data = JSON.stringify({
