@@ -28,6 +28,7 @@
     "redis": "^2.8.0"
   },
   "devDependencies": {
+    "async-optics": "^1.1.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-es2015": "^6.24.1",

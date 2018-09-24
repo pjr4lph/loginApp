@@ -33,7 +33,7 @@ class App extends Component {
 // seek authorization (that login credentials are correct) and either receives a status code
 // of 200(OK) or 404(not found), and on either case it either sets the loggedIn val as true or false
 // regardless of t/f this.redirectPath gets assigned ternary statement of a react router
-// which in restrospect is superfluous because a whole component doesnt really need to directed to but whatever....
+// which in restrospect is superfluous because a whole component doesnt really need to directed to...
     event.preventDefault();
 
     const data = JSON.stringify({
